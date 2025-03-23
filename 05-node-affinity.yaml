@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: affinity
+  labels:
+    purpose: "affinity-demo"
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hardware
+            operator: In
+            values:
+            - gpu
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "hardware"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoExecute"
+
+# tolerations will not 100% guarantee that pods will run on the tainted nodes.. 
+# because of resources and other pods in the node 
+
+# pod may run in other node
+
+# to force the pod to run on specific node we ill use affinity
+
+
+# nodeSelector vs affinity
+# -------------------------
+
+# nodeSelector is one option but affinity has more options than nodeSelector
+
+# nodeSelector has only key value pair but affinity has multiple options
+# You can use the operator field to specify a logical operator for Kubernetes to use 
+# when interpreting the rules. You can use In, NotIn, Exists, DoesNotExist, Gt and Lt.
+
+# Node affinity is conceptually similar to nodeSelector, 
+# allowing you to constrain which nodes your Pod can be scheduled on based on node labels.
+
+# kubectl apply -f 05-node-affinity.yaml
+
+# Pod will be in Pending status Add the labels to the nodes
+
+# kubectl get nodes
+# kubectl lable nodes <Node_Name> hardware=gpu
+
+# After adding label the pod will be in running status
+
+# kubectl get nodes
+
+

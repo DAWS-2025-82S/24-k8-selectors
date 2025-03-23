@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerations1
+  labels:
+    purpose: "tolerations-demo"
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1a
+  containers:
+  - name: nginx
+    image: nginx
+
+# kubectl apply -f 03-tolerations.yaml
+
+# try schedule the pods to tainted nodes without toleration configuration then
+# the pod will not work and it will be in Pending status

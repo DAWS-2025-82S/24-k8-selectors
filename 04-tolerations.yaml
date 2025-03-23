@@ -1,0 +1,32 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerations2
+  labels:
+    purpose: "tolerations-demo"
+spec:
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "hardware"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoExecute"
+
+
+# Untaint nodes
+# --------------
+# kubectl taint nodes ip-192-168-43-212.ec2.internal hardware=gpu:NoSchedule-
+# kubectl taint nodes ip-192-168-43-239.ec2.internal hardware=gpu:NoExecute-
+
+# taint the nodes again and remove nodeSelector configuration
+
+# kubectl taint nodes ip-192-168-43-212.ec2.internal hardware=gpu:NoExecute
+# kubectl taint nodes ip-192-168-43-239.ec2.internal hardware=gpu:NoExecute
+
+# kubectl apply -f 04-tolerations.yaml
+
+# Pod will be scheduled to other untainted node since there is no nodeSelector configuration
+
+# Example for "tolerations will not 100% guarantee that pods will run on the tainted nodes.."

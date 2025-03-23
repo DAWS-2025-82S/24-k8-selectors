@@ -1,0 +1,31 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: anti-affinity
+  labels:
+    purpose: "anti-affinity"
+spec:
+  affinity:
+    nodeAffinity:
+      requiredDuringSchedulingIgnoredDuringExecution:
+        nodeSelectorTerms:
+        - matchExpressions:
+          - key: hardware
+            operator: NotIn #anti-affinity
+            values:
+            - gpu
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "hardware"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoExecute"
+
+
+# kubectl apply -f 06-anti-affinity.yaml
+
+# opposite to affinity uses NotIn operator i.e., 
+# schedules the pod in the node which doesn't match criteria
+

@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: taint
+  labels:
+    purpose: "taint-demo"
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1a
+  containers:
+  - name: nginx
+    image: nginx
+
+
+
+# taint --> paint or pollute
+
+# if we taint the node, scheduler will not schedule any pods on to that node
+
+# kubectl get nodes
+# kubectl get nodes --show-labels
+
+# kubectl taint nodes ip-192-168-43-212.ec2.internal hardware=gpu:NoSchedule
+
+# kubectl apply -f 01-taint-node-selector.yaml
+
+
+# NoSchedule --> order
+# PreferNoSchedule --> request
+# NoExecute --> taint the node which has already few pods running
+
+# NoSchedule --> order  -- will not schedule any pods in future and current pods will be running
+# PreferNoSchedule --> request
+# NoExecute --> taint the node which has already few pods running -- deletes the existing pods
+
+# kubectl get pods -o wide
+# kubectl taint nodes ip-192-168-43-239.ec2.internal hardware=gpu:NoExecute
+# kubectl get pods -o wide
+
+# Worker nodes are tainted when dedicated worker nodes are required 

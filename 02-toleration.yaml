@@ -1,0 +1,30 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: tolerations
+  labels:
+    purpose: "tolerations-demo"
+spec:
+  nodeSelector:
+    topology.kubernetes.io/zone: us-east-1a
+  containers:
+  - name: nginx
+    image: nginx
+  tolerations:
+  - key: "hardware"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoSchedule"
+  - key: "hardware"
+    operator: "Equal"
+    value: "gpu"
+    effect: "NoExecute"
+
+
+# kubectl apply -f 02-toleration.yaml
+
+# toleration --> allow -- the pods to run on tainted nodes
+
+# tolerations will not 100% gaurentee thats pods will run on the tainted nodes.. 
+# because of resources and other pods in the node
+
