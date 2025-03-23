@@ -38,3 +38,8 @@ spec:
 # kubectl get pods -o wide
 
 # Worker nodes are tainted when dedicated worker nodes are required 
+
+# command to get the nodes with taints
+
+# kubectl get nodes -o json | jq '.items[].spec'
+# kubectl get nodes -o json | jq -r '.items[] | select(.spec.taints) | .metadata.name'

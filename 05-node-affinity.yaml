@@ -48,7 +48,11 @@ spec:
 # Pod will be in Pending status Add the labels to the nodes
 
 # kubectl get nodes
-# kubectl lable nodes <Node_Name> hardware=gpu
+# kubectl label nodes <Node_Name> hardware=gpu
+
+# kubectl label nodes ip-192-168-32-164.ec2.internal hardware=gpu
+
+# kubectl label nodes ip-192-168-33-103.ec2.internal hardware=gpu
 
 # After adding label the pod will be in running status
 

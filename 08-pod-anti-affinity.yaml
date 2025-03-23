@@ -35,7 +35,7 @@ spec:
     value: "gpu"
     effect: "NoExecute"
 
-# kubectl apply -f 08-pod-affinity.yaml
+# kubectl apply -f 08-pod-anti-affinity.yaml
 
 # In pod antiaffinity both the pods will not run in the same node
 
